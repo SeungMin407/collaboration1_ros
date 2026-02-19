@@ -98,10 +98,10 @@ def convert_to_robot_coords(point_list, img_w, img_h):
 
     robot_list = []
 
-    # 🔥 1️⃣ 색상 인덱스 기준 정렬
+    # 색상 인덱스 기준 정렬
     sorted_points = sorted(point_list, key=lambda p: p[2])
 
-    # 🔥 2️⃣ 색상별 Grid NN 정렬
+    # 색상별 Grid NN 정렬
     from itertools import groupby
 
     for color_index, group in groupby(sorted_points, key=lambda p: p[2]):
