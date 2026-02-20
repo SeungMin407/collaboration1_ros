@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+
+# 1차 개발완료 정상작동 코드
+
 import rclpy
 import DR_init
 import time
@@ -10,12 +13,6 @@ from rclpy.action import ActionServer, CancelResponse, GoalResponse
 from dot_msgs.action import DrawStipple
 from dot_msgs.msg import DotArray
 
-# Module 2 planner (workspace mapping + ordering)
-try:
-    from .robot_module.stipple_robot_planner import convert_to_robot_coords
-except ImportError:
-    # fallback when running as a script (not as an installed package)
-    from robot_module.stipple_robot_planner import convert_to_robot_coords
 
 # ==============================
 # 로봇 설정
@@ -94,8 +91,6 @@ class DotDrawerAction(Node):
     def __init__(self):
         super().__init__("dot_drawer_action", namespace=ROBOT_ID)
         # planner config (kept minimal for new planner module)
-        self._planner_img_w = 1.0
-        self._planner_img_h = 1.0
 
         self._busy = False
 
@@ -150,9 +145,22 @@ class DotDrawerAction(Node):
         req = goal_handle.request
         incoming: DotArray = req.data
 
+        img_w = float(incoming.width)
+        img_h = float(incoming.height)  
+        
+        ### 디버깅용 ###
+        self.get_logger().info(
+            f"[Goal Received] width={img_w}, height={img_h}, dot_count={len(incoming.dots)}"
+        )
+        for i, d in enumerate(incoming.dots[:3]):
+            self.get_logger().info(
+                f"[Dot {i}] x={d.x}, y={d.y}, v={d.v}"
+            )
+        ###############
+
         # ---- 동작 파라미터(기존 유지) ----
         JReady = [0, 0, 90, 0, 90, 0]
-
+        
         z_up = 74
         z_down = 68
         z_lift = z_up + 30
@@ -162,8 +170,8 @@ class DotDrawerAction(Node):
         # 1) (v별) 순서 최적화 + 작업영역 좌표 변환
         try:
             point_list = [(d.x, d.y, d.v) for d in incoming.dots]
-            ########### 모듈 사용하는 지점 ############
-            plan = convert_to_robot_coords(point_list, img_w=self._planner_img_w, img_h=self._planner_img_h)
+            ########### 어떻게 입력할지 사용하는 지점 ###################################### 중요! ###############
+            plan = point_list
         except Exception as e:
             self.get_logger().error(f"Planner error: {e}")
             goal_handle.abort()
@@ -194,6 +202,10 @@ class DotDrawerAction(Node):
             # 첫 점 찍기
             movel(posx([x0, y0, z_down, rx, ry, rz]), vel=VELOCITY, acc=ACC)
             movel(posx([x0, y0, z_up, rx, ry, rz]), vel=VELOCITY, acc=ACC)
+            
+            ### 디버깅용 ###
+            self.get_logger().info(f"[DRAW] 1/{total} 번째 점 완료 (v={prev_v})")
+            ###############
 
             # feedback (첫 점 완료)
             self._publish_feedback(goal_handle, 1, total, prev_v)
@@ -237,8 +249,12 @@ class DotDrawerAction(Node):
 
                 # feedback throttle: 매 점마다.
                 done = i + 2
-                if done == total or (done % 1 == 0): #매n점 마다.
-                    self._publish_feedback(goal_handle, done, total, prev_v)
+
+                ### 디버깅용 ###
+                self.get_logger().info(f"[DRAW] {done}/{total} 번째 점 완료 (v={prev_v})")
+                ##############
+
+                self._publish_feedback(goal_handle, done, total, prev_v)
 
             movej(JReady, vel=VELOCITY, acc=ACC)
             self.get_logger().info(f"Drawing done ({total} dots). elapsed={time.time()-t0:.2f}s")
