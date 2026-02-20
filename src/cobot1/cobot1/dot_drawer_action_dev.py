@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+
+# RBK로 개발중인 코드
+
 import rclpy
 import DR_init
 import time
@@ -25,17 +28,55 @@ ROBOT_MODEL = "m0609"
 ROBOT_TOOL = "Tool Weight"
 ROBOT_TCP = "GripperDA_v1"
 
-VELOCITY = 200
-ACC = 200
-
 DR_init.__dsr__id = ROBOT_ID
 DR_init.__dsr__model = ROBOT_MODEL
+
+# 이동 속도 및 가속도
+VELOCITY = 200
+ACC = 200
 
 # pub_sm과 동일 작업영역 기본값
 X_LEFT = 320
 Y_TOP = 0
 X_RIGHT = 500
 Y_BOTTOM = 120
+
+
+# ===============================
+# 그리퍼용 설정값
+# ===============================
+PEN_Z_UP   = 120
+PEN_Z_DOWN =  80
+PEN_PICK_TABLE = {
+    1: (460, 0),
+    2: (480, 0),
+    3: (500, 0),
+}
+# 디지털 출력상태
+ON,OFF = 1,0
+# set
+DO_GRIP = 1       # set_digital_output(1, ON)  -> Grip
+DO_RELEASE = 2    # set_digital_output(2, ON)  -> Release
+# get
+DI_GRIP = 1       # get_digital_input(1)       -> Grip 완료
+DI_RELEASE = 2    # get_digital_input(2)       -> Release 완료
+
+def wait_digital_input(sig_num, wait_fn, get_di_fn):
+    while not get_di_fn(sig_num):
+        wait_fn(0.1)
+
+def gripper_release(set_do_fn, wait_fn, get_di_fn):
+    # Release 동작
+    set_do_fn(DO_RELEASE, ON)
+    set_do_fn(DO_GRIP, OFF)
+    wait_digital_input(DI_RELEASE, wait_fn, get_di_fn)
+
+def gripper_grip(set_do_fn, wait_fn, get_di_fn):
+    # Grip 동작
+    set_do_fn(DO_GRIP, ON)
+    set_do_fn(DO_RELEASE, OFF)
+    wait_digital_input(DI_GRIP, wait_fn, get_di_fn)
+
 
 
 # ==============================
@@ -85,6 +126,39 @@ def lift_high_at_xy(x, y, z_lift, rx, ry, rz, vel, acc):
 def go_xy_up(x, y, z_up, rx, ry, rz, vel, acc):
     from DSR_ROBOT2 import posx, movel
     movel(posx([x, y, z_up, rx, ry, rz]), vel=vel, acc=acc)
+
+
+def change_pen_by_v(prev_v: int, target_v: int, rx, ry, rz, vel, acc):
+    """
+    v 변경 시 펜 교체 이동만 수행 (임시)
+    - '놓는 위치'는 prev_v의 펜 위치(PEN_PICK_TABLE[prev_v])와 동일
+    - '잡는 위치'는 target_v의 펜 위치(PEN_PICK_TABLE[target_v])
+    - 그리퍼 ON/OFF는 아직 안 넣고 이동만 수행
+    """
+    from DSR_ROBOT2 import posx, movel, set_digital_output, get_digital_input, wait
+
+    # 위치 정의 안 된 v면 스킵
+    if prev_v not in PEN_PICK_TABLE or target_v not in PEN_PICK_TABLE:
+        return
+
+    put_x, put_y = PEN_PICK_TABLE[prev_v]      # 현재 펜을 "놓을" 자리
+    pick_x, pick_y = PEN_PICK_TABLE[target_v]  # 새 펜을 "집을" 자리
+
+    # 1) put 위치로 가서 내려놓기 (이동만)
+    movel(posx([put_x, put_y, PEN_Z_UP,   rx, ry, rz]), vel=vel, acc=acc)
+    movel(posx([put_x, put_y, PEN_Z_DOWN, rx, ry, rz]), vel=vel, acc=acc)
+    gripper_release(set_digital_output, wait, get_digital_input)
+    movel(posx([put_x, put_y, PEN_Z_UP,   rx, ry, rz]), vel=vel, acc=acc)
+
+    # 2) pick 위치로 가서 집기 (이동만)
+    movel(posx([pick_x, pick_y, PEN_Z_UP,   rx, ry, rz]), vel=vel, acc=acc)
+    movel(posx([pick_x, pick_y, PEN_Z_DOWN, rx, ry, rz]), vel=vel, acc=acc)
+    gripper_grip(set_digital_output, wait, get_digital_input)
+    movel(posx([pick_x, pick_y, PEN_Z_UP,   rx, ry, rz]), vel=vel, acc=acc)
+
+
+
+
 
 
 # ==============================
@@ -239,6 +313,7 @@ class DotDrawerAction(Node):
                 if i > 0 and v2 != prev_v:
                     self.get_logger().info(f"v change {prev_v} -> {v2}: lift")
                     lift_high_at_xy(x1, y1, z_lift, rx, ry, rz, VELOCITY, ACC)
+                    change_pen_by_v(prev_v, v2, rx, ry, rz, VELOCITY, ACC)
                     go_xy_up(x2, y2, z_up, rx, ry, rz, VELOCITY, ACC)
                     prev_v = v2
 
