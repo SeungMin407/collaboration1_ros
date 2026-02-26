@@ -49,10 +49,22 @@
 ## 4. 📦 의존성 (Dependencies)
 프로젝트 실행에 필요한 라이브러리입니다.
 
-* **[예시]**
-* Python >= 3.8
-* firebase_admin 6.6.0
+* Python >= 3.10
+* ROS2 Humble
+* rclpy
 
+### Vision & Image Processing
+* opencv-python
+* numpy
+* rembg
+* Pillow
+
+### Backend
+* FastAPI
+* Flask
+
+### Cloud
+* firebase_admin
 
 
 ---
