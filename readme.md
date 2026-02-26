@@ -68,40 +68,55 @@ ROS2 통신을 위한 네트워크 ID를 설정합니다.
 ```bash
 echo $ROS_DOMAIN_ID
 export ROS_DOMAIN_ID=16
-Step 2. 로봇 실행
+```
 
+### Step 2. 로봇 실행
+
+```
 로봇 드라이버 및 RVIZ를 실행합니다.
 
 ▶ 시뮬레이션 모드
 ros2 launch dsr_bringup2 dsr_bringup2_rviz.launch.py mode:=virtual host:=127.0.0.1 port:=12345 model:=m0609
 ▶ 실제 로봇 모드
 ros2 launch dsr_bringup2 dsr_bringup2_rviz.launch.py mode:=real host:=192.168.1.100 port:=12345 model:=m0609
-Step 3. 점묘화 액션 서버 실행
+```
+
+### Step 3. 점묘화 액션 서버 실행
 
 로봇의 점묘화 동작을 수행하는 제어 노드를 실행합니다.
 
+```
 ros2 run cobot1 dot_drawer_action_dev
-Step 4. 액션 브릿지 실행
+```
+
+### Step 4. 액션 브릿지 실행
 
 웹과 ROS2 간 명령 전달을 담당하는 브릿지 노드를 실행합니다.
 
+```
 ros2 run cobot1 action_bridge_node
-Step 5. 사용자 웹 실행
+```
+### Step 5. 사용자 웹 실행
 
 이미지 업로드 및 작업 실행을 위한 UI를 실행합니다.
-
+```
 cd client
 python3 -m venv venv
 source venv/bin/activate
 pip install opencv-python numpy rembg pillow
 python3 app.py
-Step 6. 관리자 웹 실행
+```
+
+### Step 6. 관리자 웹 실행
 
 로봇 상태 확인 및 제어용 관리자 페이지를 실행합니다.
 
+```
 cd admin
 pip install opencv-python numpy rembg pillow
 python3 app.py
+```
+
 ✔ 실행 순서 요약
 
 ROS DOMAIN 설정
