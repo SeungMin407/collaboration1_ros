@@ -25,16 +25,17 @@
 ---
 
 #### 🔹 통합 Flow
-<img width="990" height="629" alt="image" src="https://github.com/user-attachments/assets/0c0ac3fe-ae39-46f3-9f4d-d9439201fc18" />
-<img width="763" height="664" alt="image" src="https://github.com/user-attachments/assets/15077b31-e491-425c-b957-5a5f22cd939b" />>
+<img width="884" height="661" alt="image" src="https://github.com/user-attachments/assets/daa3cfe3-5836-4c7f-bb2c-fb0ad2f748bc" />
+<img width="871" height="658" alt="image" src="https://github.com/user-attachments/assets/24258265-ae0e-40f1-b99a-7cbad75abc74" />
+
 
 *모든 입력 경로를 통합하여 점묘화 작업으로 연결되는 전체 프로세스*
 
 ---
 
 #### 🔹 점묘화 View 생성 로직 (알고리즘)
-
-<img width="240" height="645" alt="image" src="https://github.com/user-attachments/assets/5976078f-b1d6-4a5a-bec0-8ad6bea0ff8a" />
+<img width="473" height="672" alt="image" src="https://github.com/user-attachments/assets/66bb966f-c6fb-471e-8482-83e8c00f6c47" />
+<img width="476" height="618" alt="image" src="https://github.com/user-attachments/assets/a4f75683-41c3-4edd-aa1c-1bc8682f9f53" />
 
 
 *이미지 전처리 → 점 생성 → 색상 매칭 → 경로 생성 과정*
