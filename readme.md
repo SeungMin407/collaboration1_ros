@@ -6,10 +6,9 @@
 프로젝트의 전체적인 구조와 소프트웨어 흐름도입니다.
 
 ### 1-1. 시스템 설계도 (System Architecture)
-<p align="center">
-  <img src="./images/system_design.png" alt="시스템 설계도 이미지" width="400">
-</p>
-* *설명: [예: PC와 매니퓰레이터 간의 통신 구조를 나타냅니다.]*
+<img width="808" height="554" alt="image" src="https://github.com/user-attachments/assets/1bb26fd0-c280-41c9-adc5-4916e4b0b371" />
+
+* *PC와 로봇팔과의 통신 구조를 나타냅니다.*
 
 ### 1-2. 플로우 차트 (Flow Chart)
 
