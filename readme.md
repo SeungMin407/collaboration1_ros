@@ -12,20 +12,32 @@
 * *설명: [예: PC와 매니퓰레이터 간의 통신 구조를 나타냅니다.]*
 
 ### 1-2. 플로우 차트 (Flow Chart)
-main flow
-<img width="306" height="594" alt="image" src="https://github.com/user-attachments/assets/8487c8e2-3dd8-445b-a47a-9036ed5b424e" />
 
-기능 1. 카메라 촬영 이미지로 점묘화 작업 수행
-<img width="792" height="647" alt="image" src="https://github.com/user-attachments/assets/11e19c15-5866-4b98-9d3c-a01a2ac9f2a9" />
+프로젝트의 전체 동작 흐름과 주요 기능별 처리 과정을 나타냅니다.
 
-기능 2. 갤러리 내부 이미지로 점묘화 작업 수행
+---
 
-기능 3. 선택한 작품 이미지로 점묘화 작업 수행
+#### 🔹 Main Flow
+<img width="321" height="591" alt="image" src="https://github.com/user-attachments/assets/c7d9b714-6b34-4513-abac-0875b7bd81e3" />
 
-통합 flow
+*사용자 입력부터 점묘화 생성 및 로봇 동작 수행까지의 전체 시스템 흐름*
 
-점묘화 view 생성 로직(알고리즘)
+---
 
+#### 🔹 통합 Flow
+<img width="990" height="629" alt="image" src="https://github.com/user-attachments/assets/0c0ac3fe-ae39-46f3-9f4d-d9439201fc18" />
+<img width="763" height="664" alt="image" src="https://github.com/user-attachments/assets/15077b31-e491-425c-b957-5a5f22cd939b" />>
+
+*모든 입력 경로를 통합하여 점묘화 작업으로 연결되는 전체 프로세스*
+
+---
+
+#### 🔹 점묘화 View 생성 로직 (알고리즘)
+
+<img width="240" height="645" alt="image" src="https://github.com/user-attachments/assets/5976078f-b1d6-4a5a-bec0-8ad6bea0ff8a" />
+
+
+*이미지 전처리 → 점 생성 → 색상 매칭 → 경로 생성 과정*
 ---
 
 ## 2. 🖥️ 운영체제 환경 (OS Environment)
