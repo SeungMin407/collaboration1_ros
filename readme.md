@@ -121,10 +121,10 @@ ros2 run cobot1 action_bridge_node
 
 이미지 업로드 및 작업 실행을 위한 UI를 실행합니다.
 ```
-cd client
-python3 -m venv venv
+cd /home/rokey/rokey-pointillism-web/client
+python3 -m venv venv # 최초 1회 설치
 source venv/bin/activate
-pip install opencv-python numpy rembg pillow
+pip install opencv-python numpy rembg pillow # 최초 1회 설치
 python3 app.py
 ```
 
@@ -133,8 +133,7 @@ python3 app.py
 로봇 상태 확인 및 제어용 관리자 페이지를 실행합니다.
 
 ```
-cd admin
-pip install opencv-python numpy rembg pillow
+cd /home/rokey/rokey-pointillism-web/admin
 python3 app.py
 ```
 
