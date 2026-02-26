@@ -12,10 +12,19 @@
 * *설명: [예: PC와 매니퓰레이터 간의 통신 구조를 나타냅니다.]*
 
 ### 1-2. 플로우 차트 (Flow Chart)
-<p align="center">
-  <img src="./images/flow_chart.png" alt="플로우 차트 이미지" width="300" height="300">
-</p>
-* *설명: [예: UI부터 전체 프로세스 진행도를 나타냅니다.]*
+main flow
+<img width="306" height="594" alt="image" src="https://github.com/user-attachments/assets/8487c8e2-3dd8-445b-a47a-9036ed5b424e" />
+
+기능 1. 카메라 촬영 이미지로 점묘화 작업 수행
+<img width="792" height="647" alt="image" src="https://github.com/user-attachments/assets/11e19c15-5866-4b98-9d3c-a01a2ac9f2a9" />
+
+기능 2. 갤러리 내부 이미지로 점묘화 작업 수행
+
+기능 3. 선택한 작품 이미지로 점묘화 작업 수행
+
+통합 flow
+
+점묘화 view 생성 로직(알고리즘)
 
 ---
 
