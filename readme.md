@@ -34,9 +34,13 @@
 ---
 
 #### 🔹 점묘화 View 생성 로직 (알고리즘)
-<img width="473" height="672" alt="image" src="https://github.com/user-attachments/assets/66bb966f-c6fb-471e-8482-83e8c00f6c47" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/66bb966f-c6fb-471e-8482-83e8c00f6c47" width="400">
+</p>
 
-<img width="476" height="618" alt="image" src="https://github.com/user-attachments/assets/a4f75683-41c3-4edd-aa1c-1bc8682f9f53" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a4f75683-41c3-4edd-aa1c-1bc8682f9f53" width="400">
+</p>
 
 
 *이미지 전처리 → 점 생성 → 색상 매칭 → 경로 생성 과정*
