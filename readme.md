@@ -167,3 +167,6 @@ ROS DOMAIN 설정
 사용자 웹 실행
 
 관리자 웹 실행
+
+
+<img width="1409" height="880" alt="image" src="https://github.com/user-attachments/assets/dc64edbe-d9d8-4318-ab36-897e21b1be27" />
