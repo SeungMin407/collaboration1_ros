@@ -6,7 +6,7 @@
 프로젝트의 전체적인 구조와 소프트웨어 흐름도입니다.
 
 ### 1-1. 시스템 설계도 (System Architecture)
-<img width="808" height="554" alt="image" src="https://github.com/user-attachments/assets/1bb26fd0-c280-41c9-adc5-4916e4b0b371" />
+<img width="689" height="490" alt="image" src="https://github.com/user-attachments/assets/ddb04fa4-ba3d-4e21-9943-246cacd83479" />
 
 * *PC와 로봇팔과의 통신 구조를 나타냅니다.*
 
